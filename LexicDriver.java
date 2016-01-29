@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.LinkedList;
 
 public class LexicDriver {
     public static void main(String[] args) {
@@ -17,6 +18,7 @@ public class LexicDriver {
                 "Format: {letter} {row} {col}\n" +
                 "Input 'submit' to submit letter placement.");
 
+            LinkedList<String> moves = new LinkedList<String>();
             game.displayBoard();
             game.displayHand(currentPlayer);
             String input = scanner.nextLine().toLowerCase();
@@ -41,13 +43,23 @@ public class LexicDriver {
                         isWild = true;
                     }
                     game.playLetter(currentPlayer, letter, row, col, isWild);
+                    moves.add(input);
                 } else {
                     input = scanner.nextLine().toLowerCase();
                     continue;
                 }
 
+                game.clearScreen();
+                System.out.println(
+                    "Player " + currentPlayer + " Turn\n" +
+                    "Input letter and board location to place tile there.\n" +
+                    "Format: {letter} {row} {col}\n" +
+                    "Input 'submit' to submit letter placement.");
                 game.displayBoard();
                 game.displayHand(currentPlayer);
+                for (String move : moves) {
+                    System.out.println(move);
+                }
 
                 input = scanner.nextLine().toLowerCase();
             }
